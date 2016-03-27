@@ -40,7 +40,7 @@
     <properties>
         <javaVersion>1.6</javaVersion>
         <mavenVersion>2.0.9</mavenVersion>
-        <scm.connection>scm:git:git@github.com/mytaxi/phrase-maven-plugin.git</scm.connection>
+        <scm.connection>scm:git:git@github.com:mytaxi/phrase-maven-plugin.git</scm.connection>
         <scm.url>https://github.com/mytaxi/phrase-maven-plugin</scm.url>
     </properties>
 
