@@ -1,5 +1,6 @@
 package com.mytaxi.plugins;
 
+import com.google.common.base.MoreObjects;
 import com.google.common.base.Objects;
 import com.google.common.base.Preconditions;
 import com.mytaxi.apis.phrase.tasks.PhraseAppSyncTask;
@@ -157,7 +158,7 @@ public class PhraseAppMojo extends AbstractMojo
 
     private String getGeneratedResourceFolder()
     {
-        return project.getBuild().getDirectory() + Objects.firstNonNull(generatedResourcesFolderName, GENERATED_RESOURCES);
+        return project.getBuild().getDirectory() + MoreObjects.firstNonNull(generatedResourcesFolderName, GENERATED_RESOURCES);
     }
 
 }
