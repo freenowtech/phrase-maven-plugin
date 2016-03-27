@@ -1,12 +1,12 @@
-responsible: m.winkelmann
+# Phrase Maven Plugin
 
-# What is this?
+## What is this?
 This projects contains a maven plugin to download PhraseApp translations due the 
 build process from [PhraseApp API v2](http://docs.phraseapp.com/api/v2/).
 
-# What you have to do to start it with maven?
+## What you have to do to start it with maven?
 
-## Create the bean PhraseAppSyncTask to run this job scheduled lately.
+### Create the bean PhraseAppSyncTask to run this job scheduled lately.
 
     Configure the maven plugin
     
