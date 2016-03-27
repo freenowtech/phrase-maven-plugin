@@ -1,0 +1,95 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>com.mytaxi.maven.plugins</groupId>
+    <artifactId>phrase-plugin</artifactId>
+    <packaging>maven-plugin</packaging>
+    <version>1.0.0-SNAPSHOT</version>
+    <name>phrase-plugin</name>
+
+    <properties>
+        <mavenVersion>2.0.9</mavenVersion>
+        <javaVersion>1.6</javaVersion>
+        <scm.url>https://github.com/mytaxi/phrase-maven-plugin</scm.url>
+        <scm.connection>scm:git:git:github.com/mytaxi/phrase-maven-plugin.git</scm.connection>
+    </properties>
+
+    <scm>
+        <url>${scm.url}</url>
+        <connection>${scm.connection}</connection>
+        <developerConnection>${scm.connection}</developerConnection>
+    </scm>
+
+    <dependencies>
+        <dependency>
+            <groupId>com.mytaxi.apis</groupId>
+            <artifactId>phrase-java-client</artifactId>
+            <version>1.0.0-SNAPSHOT</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.maven</groupId>
+            <artifactId>maven-artifact</artifactId>
+            <version>${mavenVersion}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.maven</groupId>
+            <artifactId>maven-plugin-api</artifactId>
+            <version>${mavenVersion}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.maven</groupId>
+            <artifactId>maven-project</artifactId>
+            <version>${mavenVersion}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.maven</groupId>
+            <artifactId>maven-model</artifactId>
+            <version>${mavenVersion}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.maven</groupId>
+            <artifactId>maven-core</artifactId>
+            <version>${mavenVersion}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.maven</groupId>
+            <artifactId>maven-artifact-manager</artifactId>
+            <version>${mavenVersion}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.maven</groupId>
+            <artifactId>maven-repository-metadata</artifactId>
+            <version>${mavenVersion}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.maven.shared</groupId>
+            <artifactId>maven-dependency-tree</artifactId>
+            <version>1.2</version>
+        </dependency>
+        <dependency>
+            <groupId>org.sonatype.plexus</groupId>
+            <artifactId>plexus-build-api</artifactId>
+            <version>0.0.7</version>
+        </dependency>
+        <dependency>
+            <groupId>org.codehaus.plexus</groupId>
+            <artifactId>plexus-utils</artifactId>
+            <version>3.0</version>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>2.5.1</version>
+                <configuration>
+                    <source>${javaVersion}</source>
+                    <target>${javaVersion}</target>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+
+</project>
