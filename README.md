@@ -1,4 +1,5 @@
 # Phrase Maven Plugin
+[![Build Status](https://travis-ci.org/mytaxi/phrase-maven-plugin.svg?branch=master)](https://travis-ci.org/mytaxi/phrase-maven-plugin)
 
 ## What is this?
 This projects contains a maven plugin to download PhraseApp translations due the 
