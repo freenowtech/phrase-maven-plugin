@@ -6,6 +6,7 @@
     <version>1.0.0-SNAPSHOT</version>
     <packaging>maven-plugin</packaging>
     <name>phrase-plugin</name>
+    <url>https://github.com/mytaxi/phrase-maven-plugin</url>
     <description>This projects contains a maven plugin to download PhraseApp translations due the
         build process from [PhraseApp API v2](http://docs.phraseapp.com/api/v2/).</description>
 
