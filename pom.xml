@@ -3,7 +3,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.mytaxi.maven.plugins</groupId>
     <artifactId>phrase-plugin</artifactId>
-    <version>1.0.1</version>
+    <version>1.0.2-SNAPSHOT</version>
     <packaging>maven-plugin</packaging>
     <name>phrase-plugin</name>
     <description>This projects contains a maven plugin to download PhraseApp translations due the
@@ -28,7 +28,7 @@
     <scm>
         <connection>${scm.connection}</connection>
         <developerConnection>${scm.connection}</developerConnection>
-        <tag>phrase-plugin-1.0.1</tag>
+        <tag>HEAD</tag>
         <url>${scm.url}</url>
     </scm>
 
