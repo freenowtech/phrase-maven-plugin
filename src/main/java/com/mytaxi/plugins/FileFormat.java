@@ -7,7 +7,7 @@ import java.util.Map;
 
 public class FileFormat
 {
-    private String name;
+    private String name = "properties";
     private Map<String, String> options = new HashMap<>();
 
 

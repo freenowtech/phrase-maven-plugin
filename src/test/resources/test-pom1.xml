@@ -20,20 +20,13 @@
                 <configuration>
                     <authToken>${env.ENV_PHRASE_AUTHTOKEN}</authToken>
                     <projectId>${env.ENV_PHRASE_PROJECTID}</projectId>
-
-                    <!--<generatedResourcesFolderName>/test-resource-folder/</generatedResourcesFolderName>-->
-                    <!--<messagesFolderName>/test-messages-folder/</messagesFolderName>-->
                     <messageFilePrefix>test-messages_</messageFilePrefix>
-                    <!--<messageFilePostfix>YOUR_MESSAGE_FILE_POSTFIX(default:.properties)</messageFilePostfix>-->
-
-
                     <fileFormat>
                         <name>properties</name>
                         <options>
-                            <escape_single_quotes>true</escape_single_quotes>
+                            <escape_single_quotes>false</escape_single_quotes>
                         </options>
                     </fileFormat>
-
                 </configuration>
                 <executions>
                     <execution>
