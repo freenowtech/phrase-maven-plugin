@@ -24,7 +24,6 @@ import org.sonatype.plexus.build.incremental.BuildContext;
 @Mojo(
     name = "phrase",
     defaultPhase = LifecyclePhase.GENERATE_SOURCES,
-    requiresProject = true,
     requiresDependencyResolution = ResolutionScope.TEST)
 
 @Execute(goal = "phrase")
@@ -75,6 +74,9 @@ public class PhraseAppMojo extends AbstractMojo
     @Parameter(property = "messageFilePostfix")
     private String messageFilePostfix;
 
+    @Parameter(property = "fileFormat", required = true)
+    private FileFormat fileFormat;
+
     @Component
     private BuildContext buildContext;
 
@@ -84,7 +86,7 @@ public class PhraseAppMojo extends AbstractMojo
     {
         checkRequiredConfigurations();
 
-        getLog().info("Start downlaoding message resources ...");
+        getLog().info("Start downloading message resources ...");
 
         PhraseAppSyncTask phraseAppSyncTask = new PhraseAppSyncTask(authToken, projectId);
 
@@ -139,15 +141,23 @@ public class PhraseAppMojo extends AbstractMojo
             getLog().info("Config: MessageFolderName is configured - " + messagesFolderName);
             phraseAppSyncTask.setMessagesFoldername(messagesFolderName);
         }
+
         if (messageFilePrefix != null)
         {
             getLog().info("Config: MessageFilePrefix is configured - " + messageFilePrefix);
             phraseAppSyncTask.setMessageFilePrefix(messageFilePrefix);
         }
+
         if (messageFilePostfix != null)
         {
             getLog().info("Config: MessageFilePostfix is configured - " + messageFilePostfix);
             phraseAppSyncTask.setMessageFilePostfix(messageFilePostfix);
+        }
+
+        if (fileFormat != null)
+        {
+            getLog().info("Config: format is configured - " + fileFormat);
+            phraseAppSyncTask.setFormat(fileFormat.toFormat());
         }
     }
 

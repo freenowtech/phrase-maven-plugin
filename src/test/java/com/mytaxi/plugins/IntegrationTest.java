@@ -67,6 +67,7 @@ public class IntegrationTest
         request.setPomFile(pomFile);
         request.setGoals(Collections.singletonList(goal));
         request.setJavaHome(javaHome);
+        request.setShowErrors(true);
 
         Invoker invoker = new DefaultInvoker();
         invoker.setMavenHome(mavenHome);
