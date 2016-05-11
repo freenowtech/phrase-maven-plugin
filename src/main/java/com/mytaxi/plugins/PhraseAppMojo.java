@@ -1,13 +1,18 @@
 package com.mytaxi.plugins;
 
 import com.google.common.base.MoreObjects;
-import com.google.common.base.Objects;
 import com.google.common.base.Preconditions;
 import com.mytaxi.apis.phrase.tasks.PhraseAppSyncTask;
 import java.io.File;
 import org.apache.maven.model.Resource;
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
+import org.apache.maven.plugins.annotations.Component;
+import org.apache.maven.plugins.annotations.Execute;
+import org.apache.maven.plugins.annotations.LifecyclePhase;
+import org.apache.maven.plugins.annotations.Mojo;
+import org.apache.maven.plugins.annotations.Parameter;
+import org.apache.maven.plugins.annotations.ResolutionScope;
 import org.apache.maven.project.MavenProject;
 import org.sonatype.plexus.build.incremental.BuildContext;
 
@@ -15,10 +20,13 @@ import org.sonatype.plexus.build.incremental.BuildContext;
  * Goal which downloads all translations from phraseApp
  *
  * @author m.winkelmann
- * @goal phrase
- * @phase generate-sources
- * @requiresDependencyResolution
  */
+@Mojo(
+    name = "phrase",
+    defaultPhase = LifecyclePhase.GENERATE_SOURCES,
+    requiresDependencyResolution = ResolutionScope.TEST)
+
+@Execute(goal = "phrase")
 public class PhraseAppMojo extends AbstractMojo
 {
 
@@ -26,60 +34,50 @@ public class PhraseAppMojo extends AbstractMojo
 
     /**
      * The Maven project.
-     *
-     * @parameter propertie="${project}"
-     * @required
-     * @readonly
      */
+    @Parameter(defaultValue = "${project}", readonly = true)
     private MavenProject project;
 
     /**
      * v2 AuthToken phrase app account. *REQUIRED
-     *
-     * @parameter propertie="${authToken}"
-     * @required
      */
+    @Parameter(property = "authToken", required = true)
     private String authToken;
 
     /**
      * v2 ProjectId for the project you want to download the strings. *REQUIRED
-     *
-     * @parameter propertie="${projectId}"
-     * @required
      */
+    @Parameter(property = "projectId", required = true)
     private String projectId;
 
     /**
      * Location directory of the messages folder. Default: ${project.build.directory}/generated-resources/
-     *
-     * @parameter propertie="${generatedResourcesFolderName}"
      */
+    @Parameter(property = "generatedResourcesFolderName")
     private String generatedResourcesFolderName;
 
     /**
      * Location directory of the messages files. Default: ${project.build.directory + generatedResourcesFolderName}/messages
-     *
-     * @parameter propertie="${messagesFolderName}"
      */
+    @Parameter(property = "messagesFolderName")
     private String messagesFolderName;
 
     /**
      * File prefix of the messages files. Default: messages_
-     *
-     * @parameter propertie="${messageFilePrefix}"
      */
+    @Parameter(property = "messageFilePrefix")
     private String messageFilePrefix;
 
     /**
      * File postfix of the messages files. Default: .properties
-     *
-     * @parameter propertie="${messageFilePostfix}"
      */
+    @Parameter(property = "messageFilePostfix")
     private String messageFilePostfix;
 
-    /**
-     * @component
-     */
+    @Parameter(property = "fileFormat", required = true)
+    private FileFormat fileFormat;
+
+    @Component
     private BuildContext buildContext;
 
 
@@ -88,7 +86,7 @@ public class PhraseAppMojo extends AbstractMojo
     {
         checkRequiredConfigurations();
 
-        getLog().info("Start downlaoding message resources ...");
+        getLog().info("Start downloading message resources ...");
 
         PhraseAppSyncTask phraseAppSyncTask = new PhraseAppSyncTask(authToken, projectId);
 
@@ -143,15 +141,23 @@ public class PhraseAppMojo extends AbstractMojo
             getLog().info("Config: MessageFolderName is configured - " + messagesFolderName);
             phraseAppSyncTask.setMessagesFoldername(messagesFolderName);
         }
+
         if (messageFilePrefix != null)
         {
             getLog().info("Config: MessageFilePrefix is configured - " + messageFilePrefix);
             phraseAppSyncTask.setMessageFilePrefix(messageFilePrefix);
         }
+
         if (messageFilePostfix != null)
         {
             getLog().info("Config: MessageFilePostfix is configured - " + messageFilePostfix);
             phraseAppSyncTask.setMessageFilePostfix(messageFilePostfix);
+        }
+
+        if (fileFormat != null)
+        {
+            getLog().info("Config: format is configured - " + fileFormat);
+            phraseAppSyncTask.setFormat(fileFormat.toFormat());
         }
     }
 

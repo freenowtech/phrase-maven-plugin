@@ -18,7 +18,7 @@ build process from [PhraseApp API v2](http://docs.phraseapp.com/api/v2/).
         <version>1.0.0</version>
         <configuration>
             <authToken>YOUR_AUTH_TOKEN(REQUIRED)</authToken>
-            <projectId>YOUR_PROJECT_IT(REQUIRED)</projectId>
+            <projectId>YOUR_PROJECT_ID(REQUIRED)</projectId>
             
             <generatedResourcesFolderName>YOUR_GENERATED_RESOURCE_FOLDER(default:generated-resources/)</generatedResourcesFolderName>
             <messagesFolderName>YOUR_MESSAGES_FOLDERNAME(default:messages/)</messagesFolderName>

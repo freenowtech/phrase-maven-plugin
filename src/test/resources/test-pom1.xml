@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>com.mytaxi.maven.plugins.test</groupId>
+    <artifactId>test-phrase-plugin</artifactId>
+    <version>1.0.0-SNAPSHOT</version>
+
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    </properties>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>com.mytaxi.maven.plugins</groupId>
+                <artifactId>phrase-plugin</artifactId>
+                <version>1.0.3-SNAPSHOT</version>
+                <configuration>
+                    <authToken>${env.ENV_PHRASE_AUTHTOKEN}</authToken>
+                    <projectId>${env.ENV_PHRASE_PROJECTID}</projectId>
+                    <messageFilePrefix>test-messages_</messageFilePrefix>
+                    <fileFormat>
+                        <name>properties</name>
+                        <options>
+                            <escape_single_quotes>false</escape_single_quotes>
+                        </options>
+                    </fileFormat>
+                </configuration>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>phrase</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+</project>
+
+
+
