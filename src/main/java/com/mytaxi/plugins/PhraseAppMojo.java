@@ -78,7 +78,7 @@ public class PhraseAppMojo extends AbstractMojo
     private FileFormat fileFormat;
 
     /**
-     * Indicates whether the build will continue even if there are clean errors.
+     * Indicates whether the build will continue even if there are errors with getting translations.
      *
      * @since 2.2
      */
