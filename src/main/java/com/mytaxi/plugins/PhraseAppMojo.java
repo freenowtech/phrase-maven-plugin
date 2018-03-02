@@ -77,6 +77,14 @@ public class PhraseAppMojo extends AbstractMojo
     @Parameter(property = "fileFormat", required = true)
     private FileFormat fileFormat;
 
+    /**
+     * Indicates whether the build will continue even if there are clean errors.
+     *
+     * @since 2.2
+     */
+    @Parameter(property = "maven.clean.failOnError", defaultValue = "true")
+    private boolean failOnError;
+
     @Component
     private BuildContext buildContext;
 
@@ -98,7 +106,15 @@ public class PhraseAppMojo extends AbstractMojo
         }
         catch (Exception e)
         {
-            throw new MojoExecutionException("Error in getting PhraseApp strings due build process", e);
+            if (failOnError)
+            {
+                throw new MojoExecutionException("Error in getting PhraseApp strings due build process", e);
+            }
+            else
+            {
+                getLog().info("Error in getting PhraseApp strings due build process", e);
+            }
+
         }
 
         addingCompileSource();
