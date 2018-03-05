@@ -80,7 +80,7 @@ public class PhraseAppMojo extends AbstractMojo
     /**
      * Indicates whether the build will continue even if there are errors with getting translations.
      *
-     * @since 2.2
+     * @since 1.0.5
      */
     @Parameter(property = "maven.clean.failOnError", defaultValue = "true")
     private boolean failOnError;
@@ -110,10 +110,9 @@ public class PhraseAppMojo extends AbstractMojo
             {
                 throw new MojoExecutionException("Error in getting PhraseApp strings due build process", e);
             }
-            else
-            {
-                getLog().info("Error in getting PhraseApp strings due build process", e);
-            }
+
+            getLog().info("Error in getting PhraseApp strings due build process", e);
+
 
         }
 
