@@ -3,12 +3,11 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.mytaxi.maven.plugins</groupId>
     <artifactId>phrase-plugin</artifactId>
-    <version>1.0.4-SNAPSHOT</version>
+    <version>1.0.4</version>
     <packaging>maven-plugin</packaging>
     <name>phrase-plugin</name>
     <description>This projects contains a maven plugin to download PhraseApp translations due the
-        build process from [PhraseApp API v2](http://docs.phraseapp.com/api/v2/).
-    </description>
+        build process from [PhraseApp API v2](http://docs.phraseapp.com/api/v2/).</description>
     <url>https://github.com/mytaxi/phrase-maven-plugin</url>
 
     <licenses>
@@ -29,7 +28,7 @@
     <scm>
         <connection>${scm.connection}</connection>
         <developerConnection>${scm.connection}</developerConnection>
-        <tag>HEAD</tag>
+        <tag>phrase-plugin-1.0.4</tag>
         <url>${scm.url}</url>
     </scm>
 
