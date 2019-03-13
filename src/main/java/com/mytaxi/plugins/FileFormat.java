@@ -16,7 +16,7 @@ public class FileFormat
 
         Format format;
 
-        if (name.equals(JavaPropertiesFormat.NAME))
+        if (name.equals(JavaPropertiesFormat.newBuilder().build().getName()))
         {
             JavaPropertiesFormat.Builder builder = JavaPropertiesFormat.newBuilder();
 
