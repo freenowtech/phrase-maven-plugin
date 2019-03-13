@@ -4,6 +4,7 @@ import com.google.common.base.MoreObjects;
 import com.google.common.base.Preconditions;
 import com.mytaxi.apis.phrase.tasks.PhraseAppSyncTask;
 import java.io.File;
+import java.net.URL;
 import org.apache.maven.model.Resource;
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
@@ -31,6 +32,12 @@ public class PhraseAppMojo extends AbstractMojo
 {
 
     private static final String GENERATED_RESOURCES = "/generated-resources/";
+
+    /**
+     * Phraseapp API endpoint.
+     */
+    @Parameter(property = "url", defaultValue = "https://api.phraseapp.com")
+    private String url;
 
     /**
      * The Maven project.
@@ -96,12 +103,11 @@ public class PhraseAppMojo extends AbstractMojo
 
         getLog().info("Start downloading message resources ...");
 
-        PhraseAppSyncTask phraseAppSyncTask = new PhraseAppSyncTask(authToken, projectId);
-
-        configure(phraseAppSyncTask);
-
         try
         {
+            final URL parsedURL = new URL(url);
+            PhraseAppSyncTask phraseAppSyncTask = new PhraseAppSyncTask(authToken, projectId, parsedURL.getProtocol(), createHost(parsedURL));
+            configure(phraseAppSyncTask);
             phraseAppSyncTask.run();
         }
         catch (Exception e)
@@ -121,6 +127,18 @@ public class PhraseAppMojo extends AbstractMojo
         getLog().info("... finished downloading message resources!");
     }
 
+
+    private String createHost(final URL parsedURL)
+    {
+        if (parsedURL.getPort() != -1)
+        {
+            return parsedURL.getHost() + parsedURL.getPath();
+        }
+        else
+        {
+            return String.format("%s:%d%s", parsedURL.getHost(), parsedURL.getPort(), parsedURL.getPath());
+        }
+    }
 
     private void addingCompileSource()
     {
