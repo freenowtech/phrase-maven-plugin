@@ -58,6 +58,12 @@ public class PhraseAppMojo extends AbstractMojo
     private String projectId;
 
     /**
+     * v2 Tags for the project you want to download the strings. *OPTIONAL
+     */
+    @Parameter(property = "tags")
+    private String tags;
+
+    /**
      * Location directory of the messages folder. Default: ${project.build.directory}/generated-resources/
      */
     @Parameter(property = "generatedResourcesFolderName")
@@ -101,12 +107,21 @@ public class PhraseAppMojo extends AbstractMojo
     {
         checkRequiredConfigurations();
 
-        getLog().info("Start downloading message resources ...");
+        final String message = tags == null
+                ? String.format("Start downloading message resources for project %s ...", projectId)
+                : String.format("Start downloading message resources for project %s and tag %s...", projectId, tags);
+        getLog().info(message);
 
         try
         {
             final URL parsedURL = new URL(url);
-            PhraseAppSyncTask phraseAppSyncTask = new PhraseAppSyncTask(authToken, projectId, parsedURL.getProtocol(), createHost(parsedURL));
+            PhraseAppSyncTask phraseAppSyncTask = new PhraseAppSyncTask(
+                    authToken,
+                    projectId,
+                    tags,
+                    parsedURL.getProtocol(),
+                    createHost(parsedURL)
+            );
             configure(phraseAppSyncTask);
             phraseAppSyncTask.run();
         }
@@ -118,8 +133,6 @@ public class PhraseAppMojo extends AbstractMojo
             }
 
             getLog().info("Error in getting PhraseApp strings due build process", e);
-
-
         }
 
         addingCompileSource();

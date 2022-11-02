@@ -46,7 +46,7 @@
     <properties>
         <javaVersion>1.7</javaVersion>
         <mavenVersion>3.2.2</mavenVersion>
-        <phrase-java-client.version>1.0.6</phrase-java-client.version>
+        <phrase-java-client.version>1.0.7-SNAPSHOT</phrase-java-client.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <scm.connection>scm:git:git@github.com:mytaxi/phrase-maven-plugin.git</scm.connection>
         <scm.url>https://github.com/mytaxi/phrase-maven-plugin</scm.url>
