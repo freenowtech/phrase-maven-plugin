@@ -2,7 +2,7 @@ package com.mytaxi.plugins;
 
 import com.google.common.base.MoreObjects;
 import com.google.common.base.Preconditions;
-import com.mytaxi.apis.phrase.tasks.PhraseAppSyncTask;
+import com.freenow.apis.phrase.tasks.PhraseAppSyncTask;
 import java.io.File;
 import java.net.URL;
 import org.apache.maven.model.Resource;
