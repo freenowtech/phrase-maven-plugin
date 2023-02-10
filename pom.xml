@@ -8,7 +8,7 @@
     <name>phrase-plugin</name>
     <description>This projects contains a maven plugin to download PhraseApp translations due the
         build process from [PhraseApp API v2](http://docs.phraseapp.com/api/v2/).</description>
-    <url>https://github.com/mytaxi/phrase-maven-plugin</url>
+    <url>https://github.com/freenowtech/phrase-maven-plugin</url>
 
     <licenses>
         <license>
@@ -20,16 +20,16 @@
     <developers>
         <developer>
             <name>Jan Sören Ramm</name>
-            <organization>Intelligent Apps GmbH - mytaxi</organization>
-            <organizationUrl>http://www.mytaxi.com</organizationUrl>
+            <organization>Intelligent Apps GmbH - Free Now</organization>
+            <organizationUrl>http://www.free-now.com</organizationUrl>
         </developer>
     </developers>
 
     <scm>
-        <connection>${scm.connection}</connection>
-        <developerConnection>${scm.connection}</developerConnection>
+        <connection>scm:git:git@github.com:freenowtech/phrase-maven-plugin.git</connection>
+        <developerConnection>scm:git:git@github.com:freenowtech/phrase-maven-plugin.git</developerConnection>
         <tag>HEAD</tag>
-        <url>${scm.url}</url>
+        <url>https://github.com/freenowtech/phrase-maven-plugin</url>
     </scm>
 
     <distributionManagement>
@@ -48,8 +48,6 @@
         <mavenVersion>3.2.2</mavenVersion>
         <phrase-java-client.version>2.1.0</phrase-java-client.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <scm.connection>scm:git:git@github.com:mytaxi/phrase-maven-plugin.git</scm.connection>
-        <scm.url>https://github.com/mytaxi/phrase-maven-plugin</scm.url>
         <spring.version>3.2.15.RELEASE</spring.version>
     </properties>
 
@@ -150,12 +148,12 @@
     </dependencies>
 
     <build>
-            <plugins>
-                <plugin>
-                    <groupId>org.apache.maven.plugins</groupId>
-                    <artifactId>maven-release-plugin</artifactId>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-release-plugin</artifactId>
                 <version>2.5.3</version>
-                </plugin>
+            </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
@@ -207,57 +205,57 @@
                     <createBackupFile>false</createBackupFile>
                 </configuration>
             </plugin>
-                    <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-gpg-plugin</artifactId>
-                        <version>1.5</version>
-                        <executions>
-                            <execution>
-                                <id>sign-artifacts</id>
-                                <phase>verify</phase>
-                                <goals>
-                                    <goal>sign</goal>
-                                </goals>
-                            </execution>
-                        </executions>
-                    </plugin>
-                    <plugin>
-                        <groupId>org.sonatype.plugins</groupId>
-                        <artifactId>nexus-staging-maven-plugin</artifactId>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-gpg-plugin</artifactId>
+                <version>1.5</version>
+                <executions>
+                    <execution>
+                        <id>sign-artifacts</id>
+                        <phase>verify</phase>
+                        <goals>
+                            <goal>sign</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.sonatype.plugins</groupId>
+                <artifactId>nexus-staging-maven-plugin</artifactId>
                 <version>1.6.8</version>
-                        <extensions>true</extensions>
-                        <configuration>
-                            <serverId>ossrh</serverId>
+                <extensions>true</extensions>
+                <configuration>
+                    <serverId>ossrh</serverId>
                     <nexusUrl>https://s01.oss.sonatype.org/</nexusUrl>
-                            <autoReleaseAfterClose>true</autoReleaseAfterClose>
-                        </configuration>
-                    </plugin>
-                    <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-source-plugin</artifactId>
+                    <autoReleaseAfterClose>true</autoReleaseAfterClose>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-source-plugin</artifactId>
                 <version>3.2.1</version>
-                        <executions>
-                            <execution>
-                                <id>attach-sources</id>
-                                <goals>
-                                    <goal>jar-no-fork</goal>
-                                </goals>
-                            </execution>
-                        </executions>
-                    </plugin>
-                    <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-javadoc-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>attach-sources</id>
+                        <goals>
+                            <goal>jar-no-fork</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-javadoc-plugin</artifactId>
                 <version>3.2.0</version>
-                        <executions>
-                            <execution>
-                                <id>attach-javadocs</id>
-                                <goals>
-                                    <goal>jar</goal>
-                                </goals>
-                            </execution>
-                        </executions>
-                    </plugin>
-                </plugins>
-            </build>
+                <executions>
+                    <execution>
+                        <id>attach-javadocs</id>
+                        <goals>
+                            <goal>jar</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
 </project>
