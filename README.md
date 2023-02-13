@@ -1,6 +1,6 @@
 # Phrase Maven Plugin
-[![Build Status](https://travis-ci.org/mytaxi/phrase-maven-plugin.svg?branch=master)](https://travis-ci.org/mytaxi/phrase-maven-plugin)
-[![Maven Central](https://maven-badges.herokuapp.com/maven-central/com.mytaxi.maven.plugins/phrase-plugin/badge.svg)](https://maven-badges.herokuapp.com/maven-central/com.mytaxi.maven.plugins/phrase-plugin)
+[![Build Status](https://github.com/freenowtech/phrase-maven-plugin/actions/workflows/maven.yml/badge.svg?query=branch%3Amaster)](https://github.com/freenowtech/phrase-maven-plugin/actions?query=branch%3Amaster)
+[![Maven Central](https://maven-badges.herokuapp.com/maven-central/com.free-now.apis/phrase-maven-plugin/badge.svg?x=1)](https://maven-badges.herokuapp.com/maven-central/com.free-now.apis/phrase-maven-plugin)
 
 ## What is this?
 This projects contains a maven plugin to download PhraseApp translations due the 
@@ -13,9 +13,9 @@ build process from [PhraseApp API v2](http://docs.phraseapp.com/api/v2/).
     Configure the maven plugin
     
     <plugin>
-        <groupId>com.mytaxi.maven.plugins</groupId>
+        <groupId>com.free-now.maven.plugins</groupId>
         <artifactId>phrase-plugin</artifactId>
-        <version>1.0.0</version>
+        <version>2.x.x</version>
         <configuration>
             <authToken>YOUR_AUTH_TOKEN(REQUIRED)</authToken>
             <projectId>YOUR_PROJECT_ID(REQUIRED)</projectId>
