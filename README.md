@@ -1,6 +1,6 @@
 # Phrase Maven Plugin
 [![Build Status](https://github.com/freenowtech/phrase-maven-plugin/actions/workflows/maven.yml/badge.svg?query=branch%3Amaster)](https://github.com/freenowtech/phrase-maven-plugin/actions?query=branch%3Amaster)
-[![Maven Central](https://maven-badges.herokuapp.com/maven-central/com.free-now.apis/phrase-maven-plugin/badge.svg?x=1)](https://maven-badges.herokuapp.com/maven-central/com.free-now.apis/phrase-maven-plugin)
+[![Maven Central](https://maven-badges.herokuapp.com/maven-central/com.free-now.maven.plugins/phrase-maven-plugin/badge.svg?x=1)](https://maven-badges.herokuapp.com/maven-central/com.free-now.maven.plugins/phrase-maven-plugin)
 
 ## What is this?
 This projects contains a maven plugin to download PhraseApp translations due the 
