@@ -18,7 +18,6 @@
                 <artifactId>phrase-plugin</artifactId>
                 <version>2.0.1-SNAPSHOT</version>
                 <configuration>
-                    <authToken>${env.ENV_PHRASE_AUTHTOKEN}</authToken>
                     <projectId>${env.ENV_PHRASE_PROJECTID}</projectId>
                     <messageFilePrefix>test-messages_</messageFilePrefix>
                     <fileFormat>

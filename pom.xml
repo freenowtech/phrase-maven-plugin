@@ -1,19 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.free-now.maven.plugins</groupId>
     <artifactId>phrase-plugin</artifactId>
     <version>2.0.1-SNAPSHOT</version>
+
     <packaging>maven-plugin</packaging>
     <name>phrase-plugin</name>
+
     <description>This projects contains a maven plugin to download PhraseApp translations due the
         build process from [PhraseApp API v2](http://docs.phraseapp.com/api/v2/).</description>
+
     <url>https://github.com/freenowtech/phrase-maven-plugin</url>
 
     <licenses>
         <license>
             <name>The Apache License, Version 2.0</name>
-            <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+            <url>https://www.apache.org/licenses/LICENSE-2.0.txt</url>
         </license>
     </licenses>
 
@@ -21,7 +25,7 @@
         <developer>
             <name>Jan Sören Ramm</name>
             <organization>Intelligent Apps GmbH - Free Now</organization>
-            <organizationUrl>http://www.free-now.com</organizationUrl>
+            <organizationUrl>https://www.free-now.com</organizationUrl>
         </developer>
     </developers>
 
