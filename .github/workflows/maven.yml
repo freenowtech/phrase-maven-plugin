@@ -25,6 +25,8 @@ jobs:
       - run: java -version
       - run: mvn -v
       - run: mvn -B verify -Dgpg.skip=true
+        env:
+          MVN_HOME: /usr/share/apache-maven-3.9.0/
 
   release:
     if: contains(github.ref, 'master') && startsWith(github.event.head_commit.message, '[release]')

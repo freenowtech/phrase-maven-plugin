@@ -32,11 +32,12 @@ public class PhraseAppMojo extends AbstractMojo
 {
 
     private static final String GENERATED_RESOURCES = "/generated-resources/";
+    private static final String DEFAULT_PHRASE_HOST = "https://api.phraseapp.com";
 
     /**
      * Phraseapp API endpoint.
      */
-    @Parameter(property = "url", defaultValue = "https://api.phraseapp.com")
+    @Parameter(property = "url", defaultValue = DEFAULT_PHRASE_HOST)
     private String url;
 
     /**
@@ -46,9 +47,9 @@ public class PhraseAppMojo extends AbstractMojo
     private MavenProject project;
 
     /**
-     * v2 AuthToken phrase app account. *REQUIRED
+     * v2 AuthToken phrase app account.
      */
-    @Parameter(property = "authToken", required = true)
+    @Parameter(property = "authToken")
     private String authToken;
 
     /**
@@ -157,8 +158,10 @@ public class PhraseAppMojo extends AbstractMojo
     private void checkRequiredConfigurations()
     {
         getLog().info("Config: Check required configurations ...");
-        Preconditions.checkNotNull("AuthToken is not configured but is REQUIRED", authToken);
-        Preconditions.checkNotNull("ProjectId is not configured but is REQUIRED", projectId);
+        if (DEFAULT_PHRASE_HOST.equals(url)) {
+            Preconditions.checkNotNull(authToken, "AuthToken is not configured but is REQUIRED");
+        }
+        Preconditions.checkNotNull(projectId, "ProjectId is not configured but is REQUIRED", projectId);
         getLog().info("Config: ... successfully checked required configurations.");
     }
 
