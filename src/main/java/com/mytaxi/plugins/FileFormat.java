@@ -1,7 +1,7 @@
 package com.mytaxi.plugins;
 
-import com.mytaxi.apis.phrase.api.format.Format;
-import com.mytaxi.apis.phrase.api.format.JavaPropertiesFormat;
+import com.freenow.apis.phrase.api.format.Format;
+import com.freenow.apis.phrase.api.format.JavaPropertiesFormat;
 import java.util.HashMap;
 import java.util.Map;
 

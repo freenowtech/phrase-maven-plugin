@@ -1,10 +1,10 @@
 package com.mytaxi.plugins;
 
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.InputStream;
 import java.net.URISyntaxException;
 import java.net.URL;
+import java.nio.file.Files;
 import java.util.Collections;
 import java.util.Properties;
 import org.apache.maven.shared.invoker.DefaultInvocationRequest;
@@ -26,18 +26,18 @@ import static org.junit.Assert.assertTrue;
 public class IntegrationTest
 {
 
-    private final File javaHome = new File("/Library/Java/JavaVirtualMachines/jdk1.8.0_66.jdk/Contents/Home");
-    private final File mavenHome = new File("/usr/local/Cellar/maven/3.3.9/libexec");
+    private final File javaHome = new File(System.getenv("JAVA_HOME"));
+    private final File mavenHome = new File(System.getenv("MVN_HOME"));
     private final File messageOutputDir = new File("target/test-classes/target/generated-resources/messages/");
-
+    private static final String TESTING_KEY = "test-phrase-maven-plugin";
 
     @Test
     public void testPom1() throws Exception
     {
         testPom(
             findTestPomFile("/test-pom1.xml"),
-            "DRIVER_APPROACH_SMS",
-            "Your driver: %1$s %2$s (%3$s) is on his way and will arrive in ca. %4$s min. \n Driver's tel.: %5$s."); // single quote
+            TESTING_KEY,
+            "This is for testing the Maven Phrase plugin. Please, don't remove it."); // single quote
     }
 
 
@@ -46,21 +46,53 @@ public class IntegrationTest
     {
         testPom(
             findTestPomFile("/test-pom2.xml"),
-            "DRIVER_APPROACH_SMS",
-            "Your driver: %1$s %2$s (%3$s) is on his way and will arrive in ca. %4$s min. \n Driver''s tel.: %5$s."); // double quote
+            TESTING_KEY,
+            "This is for testing the Maven Phrase plugin. Please, don''t remove it."); // double quote
+    }
+
+
+    @Test
+    public void shouldSucceedWithoutAuthTokenWhenHostIsNotDefault() throws Exception
+    {
+        // given
+        File pomFile = findTestPomFile("/test-pom3.xml");
+
+        // when
+        int cleanGoal = invokeMaven(pomFile, "clean");
+        int compileGoal = invokeMaven(pomFile, "compile");
+
+        // then
+        assertEquals(0, cleanGoal);
+        assertEquals(0, compileGoal);
+    }
+
+
+    @Test
+    public void shouldFailWhenAuthTokenIsMissing() throws Exception
+    {
+        // given
+        File pomFile = findTestPomFile("/test-pom4.xml");
+
+        // when
+        int cleanGoal = invokeMaven(pomFile, "clean");
+        int compileGoal = invokeMaven(pomFile, "compile");
+
+        // then
+        assertEquals(0, cleanGoal);
+        assertEquals(1, compileGoal);
     }
 
 
     private void testPom(File pomFile, String key, String expectedText) throws Exception
     {
         // invoke clean
-        invokeMaven(pomFile, "clean");
+        assertEquals(0, invokeMaven(pomFile, "clean"));
 
         // make sure clean removed stuff / does not exist in the first place
         assertFalse(messageOutputDir.exists());
 
         // invoke compile
-        invokeMaven(pomFile, "compile");
+        assertEquals(0, invokeMaven(pomFile, "compile"));
 
         // find and test messages
         assertTrue(messageOutputDir.isDirectory());
@@ -69,7 +101,7 @@ public class IntegrationTest
         File messagesFile = new File(messageOutputDir, "test-messages_en.properties");
         assertTrue(messagesFile.canRead());
 
-        try (InputStream in = new FileInputStream(messagesFile))
+        try (InputStream in = Files.newInputStream(messagesFile.toPath()))
         {
             Properties properties = new Properties();
             properties.load(in);
@@ -93,7 +125,7 @@ public class IntegrationTest
     }
 
 
-    private void invokeMaven(File pomFile, String goal) throws CommandLineException, MavenInvocationException
+    private int invokeMaven(File pomFile, String goal) throws CommandLineException, MavenInvocationException
     {
         InvocationRequest request = new DefaultInvocationRequest();
         request.setPomFile(pomFile);
@@ -113,6 +145,6 @@ public class IntegrationTest
             throw executionException;
         }
 
-        assertEquals(0, result.getExitCode());
+        return result.getExitCode();
     }
 }
