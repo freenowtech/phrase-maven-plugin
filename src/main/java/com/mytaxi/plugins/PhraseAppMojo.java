@@ -1,10 +1,9 @@
 package com.mytaxi.plugins;
 
+import com.freenow.apis.phrase.tasks.PhraseAppSyncTask;
 import com.google.common.base.MoreObjects;
 import com.google.common.base.Preconditions;
-import com.freenow.apis.phrase.tasks.PhraseAppSyncTask;
 import java.io.File;
-import java.net.URL;
 import org.apache.maven.model.Resource;
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
@@ -59,6 +58,12 @@ public class PhraseAppMojo extends AbstractMojo
     private String projectId;
 
     /**
+     * v2 Tags for the project you want to download the strings. *OPTIONAL
+     */
+    @Parameter(property = "tags")
+    private String tags;
+
+    /**
      * Location directory of the messages folder. Default: ${project.build.directory}/generated-resources/
      */
     @Parameter(property = "generatedResourcesFolderName")
@@ -102,12 +107,14 @@ public class PhraseAppMojo extends AbstractMojo
     {
         checkRequiredConfigurations();
 
-        getLog().info("Start downloading message resources ...");
+        final String message = tags == null
+            ? String.format("Start downloading message resources for project %s ...", projectId)
+            : String.format("Start downloading message resources for project %s and tags %s...", projectId, tags);
+        getLog().info(message);
 
         try
         {
-            final URL parsedURL = new URL(url);
-            PhraseAppSyncTask phraseAppSyncTask = new PhraseAppSyncTask(authToken, projectId, parsedURL.getProtocol(), createHost(parsedURL));
+            final PhraseAppSyncTask phraseAppSyncTask = new PhraseAppSyncTask(authToken, projectId, tags, url);
             configure(phraseAppSyncTask);
             phraseAppSyncTask.run();
         }
@@ -119,8 +126,6 @@ public class PhraseAppMojo extends AbstractMojo
             }
 
             getLog().info("Error in getting PhraseApp strings due build process", e);
-
-
         }
 
         addingCompileSource();
@@ -128,18 +133,6 @@ public class PhraseAppMojo extends AbstractMojo
         getLog().info("... finished downloading message resources!");
     }
 
-
-    private String createHost(final URL parsedURL)
-    {
-        if (parsedURL.getPort() != -1)
-        {
-            return parsedURL.getHost() + parsedURL.getPath();
-        }
-        else
-        {
-            return String.format("%s:%d%s", parsedURL.getHost(), parsedURL.getPort(), parsedURL.getPath());
-        }
-    }
 
     private void addingCompileSource()
     {
@@ -158,7 +151,8 @@ public class PhraseAppMojo extends AbstractMojo
     private void checkRequiredConfigurations()
     {
         getLog().info("Config: Check required configurations ...");
-        if (DEFAULT_PHRASE_HOST.equals(url)) {
+        if (DEFAULT_PHRASE_HOST.equals(url))
+        {
             Preconditions.checkNotNull(authToken, "AuthToken is not configured but is REQUIRED");
         }
         Preconditions.checkNotNull(projectId, "ProjectId is not configured but is REQUIRED", projectId);

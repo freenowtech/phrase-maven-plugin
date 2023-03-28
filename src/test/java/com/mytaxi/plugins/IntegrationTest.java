@@ -20,6 +20,7 @@ import org.junit.Test;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
 @Ignore
@@ -30,6 +31,8 @@ public class IntegrationTest
     private final File mavenHome = new File(System.getenv("MVN_HOME"));
     private final File messageOutputDir = new File("target/test-classes/target/generated-resources/messages/");
     private static final String TESTING_KEY = "test-phrase-maven-plugin";
+    private static final String TESTING_TAG_KEY = "test-tag-phrase-maven-plugin";
+
 
     @Test
     public void testPom1() throws Exception
@@ -83,7 +86,26 @@ public class IntegrationTest
     }
 
 
+    @Test
+    public void shouldFetchTranslationsFilteredByTag() throws Exception
+    {
+        Properties properties = downloadTranslations(findTestPomFile("/test-pom5.xml"));
+        assertNotNull(properties.getProperty(TESTING_TAG_KEY));
+        assertNull(properties.getProperty(TESTING_KEY));
+    }
+
+
     private void testPom(File pomFile, String key, String expectedText) throws Exception
+    {
+        Properties properties = downloadTranslations(pomFile);
+
+        assertEquals(
+            expectedText,
+            properties.getProperty(key));
+    }
+
+
+    private Properties downloadTranslations(File pomFile) throws Exception
     {
         // invoke clean
         assertEquals(0, invokeMaven(pomFile, "clean"));
@@ -105,10 +127,7 @@ public class IntegrationTest
         {
             Properties properties = new Properties();
             properties.load(in);
-
-            assertEquals(
-                expectedText,
-                properties.getProperty(key));
+            return properties;
         }
     }
 
