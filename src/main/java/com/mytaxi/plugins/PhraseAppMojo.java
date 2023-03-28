@@ -1,10 +1,9 @@
 package com.mytaxi.plugins;
 
+import com.freenow.apis.phrase.tasks.PhraseAppSyncTask;
 import com.google.common.base.MoreObjects;
 import com.google.common.base.Preconditions;
-import com.freenow.apis.phrase.tasks.PhraseAppSyncTask;
 import java.io.File;
-import java.net.URL;
 import org.apache.maven.model.Resource;
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
@@ -109,20 +108,13 @@ public class PhraseAppMojo extends AbstractMojo
         checkRequiredConfigurations();
 
         final String message = tags == null
-                ? String.format("Start downloading message resources for project %s ...", projectId)
-                : String.format("Start downloading message resources for project %s and tag %s...", projectId, tags);
+            ? String.format("Start downloading message resources for project %s ...", projectId)
+            : String.format("Start downloading message resources for project %s and tags %s...", projectId, tags);
         getLog().info(message);
 
         try
         {
-            final URL parsedURL = new URL(url);
-            PhraseAppSyncTask phraseAppSyncTask = new PhraseAppSyncTask(
-                    authToken,
-                    projectId,
-                    tags,
-                    parsedURL.getProtocol(),
-                    createHost(parsedURL)
-            );
+            final PhraseAppSyncTask phraseAppSyncTask = new PhraseAppSyncTask(authToken, projectId, tags, url);
             configure(phraseAppSyncTask);
             phraseAppSyncTask.run();
         }
@@ -142,18 +134,6 @@ public class PhraseAppMojo extends AbstractMojo
     }
 
 
-    private String createHost(final URL parsedURL)
-    {
-        if (parsedURL.getPort() != -1)
-        {
-            return parsedURL.getHost() + parsedURL.getPath();
-        }
-        else
-        {
-            return String.format("%s:%d%s", parsedURL.getHost(), parsedURL.getPort(), parsedURL.getPath());
-        }
-    }
-
     private void addingCompileSource()
     {
         String generatedSourcePath = getGeneratedResourceFolder();
@@ -171,7 +151,8 @@ public class PhraseAppMojo extends AbstractMojo
     private void checkRequiredConfigurations()
     {
         getLog().info("Config: Check required configurations ...");
-        if (DEFAULT_PHRASE_HOST.equals(url)) {
+        if (DEFAULT_PHRASE_HOST.equals(url))
+        {
             Preconditions.checkNotNull(authToken, "AuthToken is not configured but is REQUIRED");
         }
         Preconditions.checkNotNull(projectId, "ProjectId is not configured but is REQUIRED", projectId);
